@@ -215,8 +215,71 @@ $ kubectl get mdb -n mongodb mongodb-shard -o yaml -w
 
 - Read more about configuring sharded cluster [here](https://www.mongodb.com/docs/kubernetes-operator/master/tutorial/deploy-sharded-cluster/)
 
+## MongoDB Replica Set
+
+- For the ReplicaSet type of the MongoDB resource, the Kubernetes Operator
+deploys a replica set to the Kubernetes cluster as a `StatefulSet`,
+with a number of members equal to the value of `spec.members`.
+
+```yaml
+# replica.yaml
+---
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: my-replica-set
+spec:
+  members: 3 # Number of Members in the Replica Set
+  version: 4.4.0-ent
+  type: ReplicaSet
+  opsManager:
+    configMapRef:
+      name: my-project # previously created project ConfigMap name
+  credentials: api-keys # previously created secret that contains API Keys
+  persistent: true
+---
+```
+
+- Create the Replica Set
+
+```bash
+$ kubectl apply -f replica.yaml -n mongodb
+```
+The Above configuration will create
+
+![](./replica.png)
+
+## MongoDB Standalone Type
+
+- MongoDB Standalone deploys a MongoDB Replica set with a single member to the Kubernetes cluster.
+
+```yaml
+# standalone.yaml
+---
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: mongodb-standalone
+spec:
+  version: 4.4.0-ent
+  type: Standalone
+  opsManager:
+    configMapRef:
+      name: my-project # previously created project ConfigMap name
+  credentials: api-keys # previously created secret that contains API Keys
+  persistent: true
+---
+```
+
+- Create the Standalone resource.
+
+```bash
+$ kubectl apply -f standalone.yaml -n mongodb
+```
 
 ## References
 
 - https://www.mongodb.com/docs/kubernetes-operator/master/tutorial/deploy-sharded-cluster/
 - https://www.mongodb.com/docs/kubernetes-operator/master/tutorial/deploy-om-container/
+- https://www.mongodb.com/docs/kubernetes-operator/master/tutorial/mdb-resources-arch
+- https://github.com/mongodb/mongodb-enterprise-kubernetes/tree/master/samples
