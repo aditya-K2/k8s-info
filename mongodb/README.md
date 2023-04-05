@@ -1,4 +1,16 @@
-## Deploying Sharded Cluster through MongoDB Enterprise Operator For Kubernetes
+# MongoDB on Kubernetes with the MongoDB Kubernetes Operator
+
+## Table of Contents
+
+- [MongoDB Enterprise Kubernetes Operator](#mongodb-enterprise-kubernetes-operator)
+- [MongoDB Ops Manager](#mongodb-ops-manager)
+  * [Deploying MongoDB Ops Manager](#deploying-mongodb-ops-manager)
+- [MongoDB Sharded Cluster](#mongodb-sharded-cluster)
+- [MongoDB Replica Set](#mongodb-replica-set)
+- [MongoDB Standalone Type](#mongodb-standalone-type)
+- [References](#references)
+
+## MongoDB Enterprise Kubernetes Operator
 
 MongoDB provides two operators for Kubernetes
 
